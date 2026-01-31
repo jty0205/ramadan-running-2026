@@ -109,7 +109,9 @@ label {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 6px 0;
+}
+.check label {
+  flex: 1;
 }
 
 .small {
@@ -179,10 +181,20 @@ function renderToday(){
   document.getElementById("today").innerHTML = `
   <div class="card">
     <strong>Check-list du jour</strong>
-    <div class="check"><input type="checkbox"> Hydratation</div>
-    <div class="check"><input type="checkbox"> Course / Marche</div>
-    <div class="check"><input type="checkbox"> Renforcement genou</div>
-  </div>
+  <div class="check">
+  <input type="checkbox">
+  <label>Hydratation</label>
+</div>
+
+<div class="check">
+  <input type="checkbox">
+  <label>Course / Marche</label>
+</div>
+
+<div class="check">
+  <input type="checkbox">
+  <label>Renforcement genou</label>
+</div>
 
   <div class="card">
     <strong>Sortie</strong>

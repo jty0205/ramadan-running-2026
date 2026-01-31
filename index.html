@@ -1,278 +1,264 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ramadan + Running 2026 (JT) — v2</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial; margin: 0; }
-    header { padding: 14px 16px; background: #111; color: #fff; }
-    main { padding: 16px; max-width: 920px; margin: 0 auto; }
-    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-    button.tab { padding: 10px 12px; border: 1px solid #ccc; background: #fff; border-radius: 10px; }
-    button.tab.active { background: #111; color: #fff; border-color: #111; }
-    .card { border: 1px solid #e5e5e5; border-radius: 14px; padding: 12px; margin: 10px 0; }
-    .row { display: flex; gap: 10px; flex-wrap: wrap; }
-    label { display: block; font-size: 12px; color: #333; margin-bottom: 6px; }
-    input[type="number"], input[type="text"], input[type="date"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 10px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
-    .check { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
-    .small { font-size: 12px; color: #444; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid #e5e5e5; padding: 8px; text-align: left; }
-    th { background: #fafafa; }
-    .muted { color: #666; }
-    .btn { padding: 10px 12px; border: 1px solid #ccc; background: #fff; border-radius: 10px; }
-  </style>
-</head>
-<body>
-<header>
-  <div><b>Ramadan + Running 2026</b> — Melesse (35520) • suivi km + minutes • offline (v2)</div>
-  <div class="small">iPhone : Safari → Partager → “Sur l’écran d’accueil”. Alertes : importer le fichier .ics.</div>
-</header>
-<main>
-  <div class="tabs">
-    <button class="tab active" data-tab="today">Aujourd’hui</button>
-    <button class="tab" data-tab="log">Journal</button>
-    <button class="tab" data-tab="ramadan">Ramadan (horaires)</button>
-    <button class="tab" data-tab="settings">Objectifs</button>
-  </div>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ramadan + Running 2026</title>
 
-  <section id="today" class="panel"></section>
-  <section id="log" class="panel" style="display:none;"></section>
-  <section id="ramadan" class="panel" style="display:none;"></section>
-  <section id="settings" class="panel" style="display:none;"></section>
+<style>
+/* =====================
+   VARIABLES DE COULEUR
+===================== */
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --primary: #4f46e5;
+  --secondary: #22c55e;
+  --accent: #f59e0b;
+  --muted: #6b7280;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #020617;
+  --text: #e5e7eb;
+  --primary: #6366f1;
+  --secondary: #22c55e;
+  --accent: #fbbf24;
+  --muted: #9ca3af;
+}
+
+/* =====================
+   BASE
+===================== */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .3s ease, color .3s ease;
+}
+
+header {
+  padding: 18px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-weight: 600;
+}
+
+main {
+  padding: 16px;
+  max-width: 960px;
+  margin: auto;
+}
+
+/* =====================
+   COMPOSANTS
+===================== */
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+button {
+  border-radius: 999px;
+  padding: 10px 16px;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+}
+
+label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+  gap: 12px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* =====================
+   BOUTON THEME
+===================== */
+.toggle-theme {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 999px;
+  padding: 14px 16px;
+  font-size: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.3);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div><strong>Ramadan + Running 2026</strong> — Melesse (35520)</div>
+  <div class="small">Suivi km • minutes • renforcement • Ramadan</div>
+</header>
+
+<main>
+
+<div class="tabs">
+  <button class="tab active" data-tab="today">Aujourd’hui</button>
+  <button class="tab" data-tab="log">Journal</button>
+  <button class="tab" data-tab="ramadan">Ramadan</button>
+  <button class="tab" data-tab="settings">Objectifs</button>
+</div>
+
+<section id="today"></section>
+<section id="log" style="display:none"></section>
+<section id="ramadan" style="display:none"></section>
+<section id="settings" style="display:none"></section>
+
 </main>
 
-<script>
-const DATA = {"ramadanSchedule": [{"day": 1, "date": "2026-02-19", "fajr": "06:41", "maghrib": "18:38", "fasting": "11h57"}, {"day": 2, "date": "2026-02-20", "fajr": "06:39", "maghrib": "18:40", "fasting": "12h01"}, {"day": 3, "date": "2026-02-21", "fajr": "06:37", "maghrib": "18:41", "fasting": "12h04"}, {"day": 4, "date": "2026-02-22", "fajr": "06:36", "maghrib": "18:43", "fasting": "12h07"}, {"day": 5, "date": "2026-02-23", "fajr": "06:34", "maghrib": "18:44", "fasting": "12h10"}, {"day": 6, "date": "2026-02-24", "fajr": "06:32", "maghrib": "18:46", "fasting": "12h14"}, {"day": 7, "date": "2026-02-25", "fajr": "06:30", "maghrib": "18:48", "fasting": "12h18"}, {"day": 8, "date": "2026-02-26", "fajr": "06:29", "maghrib": "18:49", "fasting": "12h20"}, {"day": 9, "date": "2026-02-27", "fajr": "06:27", "maghrib": "18:51", "fasting": "12h24"}, {"day": 10, "date": "2026-02-28", "fajr": "06:25", "maghrib": "18:52", "fasting": "12h27"}, {"day": 11, "date": "2026-03-01", "fajr": "06:23", "maghrib": "18:54", "fasting": "12h31"}, {"day": 12, "date": "2026-03-02", "fajr": "06:21", "maghrib": "18:55", "fasting": "12h34"}, {"day": 13, "date": "2026-03-03", "fajr": "06:19", "maghrib": "18:57", "fasting": "12h38"}, {"day": 14, "date": "2026-03-04", "fajr": "06:17", "maghrib": "18:58", "fasting": "12h41"}, {"day": 15, "date": "2026-03-05", "fajr": "06:15", "maghrib": "19:00", "fasting": "12h45"}, {"day": 16, "date": "2026-03-06", "fajr": "06:13", "maghrib": "19:01", "fasting": "12h48"}, {"day": 17, "date": "2026-03-07", "fajr": "06:11", "maghrib": "19:03", "fasting": "12h52"}, {"day": 18, "date": "2026-03-08", "fajr": "06:09", "maghrib": "19:05", "fasting": "12h56"}, {"day": 19, "date": "2026-03-09", "fajr": "06:07", "maghrib": "19:06", "fasting": "12h59"}, {"day": 20, "date": "2026-03-10", "fajr": "06:05", "maghrib": "19:08", "fasting": "13h03"}, {"day": 21, "date": "2026-03-11", "fajr": "06:03", "maghrib": "19:09", "fasting": "13h06"}, {"day": 22, "date": "2026-03-12", "fajr": "06:01", "maghrib": "19:11", "fasting": "13h10"}, {"day": 23, "date": "2026-03-13", "fajr": "05:59", "maghrib": "19:12", "fasting": "13h13"}, {"day": 24, "date": "2026-03-14", "fajr": "05:57", "maghrib": "19:14", "fasting": "13h17"}, {"day": 25, "date": "2026-03-15", "fajr": "05:55", "maghrib": "19:15", "fasting": "13h20"}, {"day": 26, "date": "2026-03-16", "fajr": "05:52", "maghrib": "19:17", "fasting": "13h25"}, {"day": 27, "date": "2026-03-17", "fajr": "05:50", "maghrib": "19:18", "fasting": "13h28"}, {"day": 28, "date": "2026-03-18", "fajr": "05:48", "maghrib": "19:19", "fasting": "13h31"}, {"day": 29, "date": "2026-03-19", "fajr": "05:46", "maghrib": "19:21", "fasting": "13h35"}, {"day": 30, "date": "2026-03-20", "fajr": "05:44", "maghrib": "19:22", "fasting": "13h38"}], "strengthKneeFriendly": [{"name": "Gainage face", "sets": 3, "reps": "30 s"}, {"name": "Gainage latéral", "sets": 2, "reps": "30 s / côté"}, {"name": "Squat lent (amplitude contrôlée)", "sets": 3, "reps": 12}, {"name": "Pont fessier", "sets": 3, "reps": 15}, {"name": "Mollets debout lents", "sets": 3, "reps": 20}], "defaults": {"goals": {"km": 12, "min": 120, "runs": 2, "kneeAlert": 5}}};
+<button class="toggle-theme" onclick="toggleTheme()">🌙 / ☀️</button>
 
+<script>
+/* =====================
+   DONNÉES DE BASE
+===================== */
 const store = {
-  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch(e) { return d; } },
-  set(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+  get(k,d){ return JSON.parse(localStorage.getItem(k)) ?? d },
+  set(k,v){ localStorage.setItem(k, JSON.stringify(v)) }
 };
 
-function ensureDefaults() {
-  if (!store.get('goals', null)) store.set('goals', DATA.defaults.goals);
-}
-ensureDefaults();
-
-function fmtDate(d) {
-  const z = (n)=>String(n).padStart(2,'0');
-  return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`;
+if(!store.get("goals")) {
+  store.set("goals",{km:12,min:120,runs:2});
 }
 
-function el(tag, attrs={}, children=[]) {
-  const n = document.createElement(tag);
-  for (const [k,v] of Object.entries(attrs)) {
-    if (k === 'class') n.className = v;
-    else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
-    else if (v !== null && v !== undefined) n.setAttribute(k, v);
-  }
-  for (const c of (Array.isArray(children)?children:[children])) {
-    if (c === null || c === undefined) continue;
-    n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
-  }
-  return n;
+/* =====================
+   ONGLET AUJOURD’HUI
+===================== */
+function renderToday(){
+  document.getElementById("today").innerHTML = `
+  <div class="card">
+    <strong>Check-list du jour</strong>
+    <div class="check"><input type="checkbox"> Hydratation</div>
+    <div class="check"><input type="checkbox"> Course / Marche</div>
+    <div class="check"><input type="checkbox"> Renforcement genou</div>
+  </div>
+
+  <div class="card">
+    <strong>Sortie</strong>
+    <div class="grid">
+      <div>
+        <label>Minutes</label>
+        <input type="number">
+      </div>
+      <div>
+        <label>Kilomètres</label>
+        <input type="number" step="0.1">
+      </div>
+      <div>
+        <label>Douleur genou (0–10)</label>
+        <input type="number" max="10">
+      </div>
+    </div>
+  </div>
+  `;
 }
 
-function getDailyState(dateStr) {
-  const all = store.get('daily', {});
-  return all[dateStr] || {
-    suhoor: false, hydration: false, iftar: false, dinner: false, runDone: false, renfoDone: false,
-    runKm: '', runMin: '', knee: '', energy: '', notes: ''
-  };
+/* =====================
+   AUTRES ONGLETS
+===================== */
+function renderLog(){
+  document.getElementById("log").innerHTML =
+    `<div class="card"><strong>Journal</strong><div class="small">Historique à venir</div></div>`;
 }
 
-function setDailyState(dateStr, state) {
-  const all = store.get('daily', {});
-  all[dateStr] = state;
-  store.set('daily', all);
+function renderRamadan(){
+  document.getElementById("ramadan").innerHTML =
+    `<div class="card"><strong>Ramadan 2026</strong><div class="small">Horaires intégrés à l’étape suivante</div></div>`;
 }
 
-function weekKey(d) {
-  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  const dayNum = date.getUTCDay() || 7;
-  date.setUTCDate(date.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
-  const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1)/7);
-  return `${date.getUTCFullYear()}-W${String(weekNo).padStart(2,'0')}`;
+function renderSettings(){
+  const g = store.get("goals");
+  document.getElementById("settings").innerHTML = `
+  <div class="card">
+    <strong>Objectifs hebdo</strong>
+    <div class="grid">
+      <div><label>Km</label><input type="number" value="${g.km}"></div>
+      <div><label>Minutes</label><input type="number" value="${g.min}"></div>
+      <div><label>Sorties</label><input type="number" value="${g.runs}"></div>
+    </div>
+  </div>`;
 }
 
-function sumWeek(dateStr) {
-  const all = store.get('daily', {});
-  const target = new Date(dateStr);
-  const wk = weekKey(target);
-  let km=0, min=0, runs=0, kneeMax=0;
-  for (const [d, st] of Object.entries(all)) {
-    const dd = new Date(d);
-    if (weekKey(dd) !== wk) continue;
-    const k = parseFloat(st.runKm);
-    const m = parseFloat(st.runMin);
-    if (!isNaN(k)) km += k;
-    if (!isNaN(m)) min += m;
-    if ((st.runKm && !isNaN(k)) || (st.runMin && !isNaN(m))) runs += 1;
-    const kk = parseFloat(st.knee);
-    if (!isNaN(kk)) kneeMax = Math.max(kneeMax, kk);
-  }
-  return {wk, km: Math.round(km*10)/10, min: Math.round(min), runs, kneeMax};
+/* =====================
+   NAVIGATION
+===================== */
+function show(tab){
+  document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+  document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
+  ["today","log","ramadan","settings"].forEach(id=>{
+    document.getElementById(id).style.display = id===tab ? "block" : "none";
+  });
+  ({today:renderToday,log:renderLog,ramadan:renderRamadan,settings:renderSettings})[tab]();
 }
 
-function renderDashboardMini(container) {
-  const dateStr = fmtDate(new Date());
-  const w = sumWeek(dateStr);
-  const goals = store.get('goals', DATA.defaults.goals);
-  container.innerHTML = '';
-  container.appendChild(el('b', {}, 'Tableau de bord (semaine en cours)'));
-  container.appendChild(el('div', {class:'small'}, `Semaine: ${w.wk} — Sorties: ${w.runs}/${goals.runs} — km: ${w.km}/${goals.km} — minutes: ${w.min}/${goals.min}`));
-  if (w.kneeMax >= goals.kneeAlert) {
-    container.appendChild(el('div', {class:'small', style:'margin-top:6px; color:#b00020;'}, `⚠️ Alerte genou : douleur max semaine = ${w.kneeMax} (seuil ${goals.kneeAlert}). Ralentir + privilégier renfo.`));
-  }
+document.querySelectorAll(".tab").forEach(b=>{
+  b.onclick = ()=>show(b.dataset.tab);
+});
+
+/* =====================
+   THÈME
+===================== */
+function toggleTheme(){
+  document.documentElement.setAttribute(
+    "data-theme",
+    document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"
+  );
 }
 
-function renderToday() {
-  const root = document.getElementById('today');
-  root.innerHTML = '';
-  const today = new Date();
-  const dateStr = fmtDate(today);
-  const st = getDailyState(dateStr);
-  const ram = DATA.ramadanSchedule.find(x=>x.date===dateStr);
-
-  root.appendChild(el('div', {class:'card'}, [
-    el('div', {}, [el('b', {}, 'Check-list du jour')]),
-    el('div', {class:'small muted'}, ram ?
-      `Ramadan — Suhoor(Fajr): ${ram.fajr} • Iftar(Maghrib): ${ram.maghrib} • Durée: ${ram.fasting}` :
-      `Hors Ramadan — Suivi course + renfo`
-    ),
-    ...[
-      ['suhoor','Suhoor (protéines + eau)'],
-      ['hydration','Hydratation OK'],
-      ['iftar','Iftar structuré'],
-      ['dinner','Dîner protéines + légumes'],
-      ['runDone','Course faite (si prévue)'],
-      ['renfoDone','Renforcement genou sensible']
-    ].map(([k,label])=>el('div', {class:'check'}, [
-      el('input', {type:'checkbox', ...(st[k] ? {checked:'checked'} : {}), onchange:(e)=>{ st[k]=e.target.checked; setDailyState(dateStr, st); renderDashboardMini(document.getElementById('miniDash')); } }),
-      el('span', {}, label)
-    ])),
-  ]));
-
-  root.appendChild(el('div', {class:'card'}, [
-    el('b', {}, 'Course (km + minutes)'),
-    el('div', {class:'grid'}, [
-      el('div', {}, [
-        el('label', {}, 'Durée (minutes)'),
-        el('input', {type:'number', min:'0', value: st.runMin, oninput:(e)=>{ st.runMin=e.target.value; setDailyState(dateStr, st); renderDashboardMini(document.getElementById('miniDash')); } })
-      ]),
-      el('div', {}, [
-        el('label', {}, 'Distance (km)'),
-        el('input', {type:'number', min:'0', step:'0.1', value: st.runKm, oninput:(e)=>{ st.runKm=e.target.value; setDailyState(dateStr, st); renderDashboardMini(document.getElementById('miniDash')); } })
-      ]),
-      el('div', {}, [
-        el('label', {}, 'Douleur genou (0-10)'),
-        el('input', {type:'number', min:'0', max:'10', value: st.knee, oninput:(e)=>{ st.knee=e.target.value; setDailyState(dateStr, st); renderDashboardMini(document.getElementById('miniDash')); } })
-      ]),
-      el('div', {}, [
-        el('label', {}, 'Énergie (0-10)'),
-        el('input', {type:'number', min:'0', max:'10', value: st.energy, oninput:(e)=>{ st.energy=e.target.value; setDailyState(dateStr, st); renderDashboardMini(document.getElementById('miniDash')); } })
-      ]),
-    ]),
-    el('div', {style:'margin-top:10px;'}, [
-      el('label', {}, 'Notes'),
-      el('input', {type:'text', value: st.notes, oninput:(e)=>{ st.notes=e.target.value; setDailyState(dateStr, st); } })
-    ])
-  ]));
-
-  root.appendChild(el('div', {class:'card'}, [
-    el('b', {}, 'Renforcement (genou sensible) — référence'),
-    el('div', {class:'small'}, 'À faire 2×/semaine (ou 1× pendant Ramadan si fatigue).'),
-    el('table', {}, [
-      el('thead', {}, el('tr', {}, [el('th', {}, 'Exercice'), el('th', {}, 'Séries × Répétitions')])),
-      el('tbody', {}, DATA.strengthKneeFriendly.map(x=>el('tr', {}, [el('td', {}, x.name), el('td', {}, `${x.sets} × ${x.reps}`) ])))
-    ])
-  ]));
-
-  root.appendChild(el('div', {class:'card', id:'miniDash'}, ''));
-  renderDashboardMini(document.getElementById('miniDash'));
-}
-
-function renderLog() {
-  const root = document.getElementById('log'); root.innerHTML='';
-  root.appendChild(el('div', {class:'card'}, [
-    el('b', {}, 'Journal (tes entrées)'),
-    el('div', {class:'small muted'}, 'Tu saisis au fil des jours dans “Aujourd’hui”. Ici tu retrouves tout.'),
-  ]));
-  const all = store.get('daily', {});
-  const rows = Object.entries(all).sort((a,b)=>a[0].localeCompare(b[0])).reverse().slice(0, 90);
-  const table = el('table', {}, [
-    el('thead', {}, el('tr', {}, ['Date','km','min','Genou','Énergie','Notes'].map(x=>el('th', {}, x)))),
-    el('tbody', {}, rows.map(([d,st])=>el('tr', {}, [
-      el('td', {}, d),
-      el('td', {}, st.runKm || ''),
-      el('td', {}, st.runMin || ''),
-      el('td', {}, st.knee || ''),
-      el('td', {}, st.energy || ''),
-      el('td', {}, st.notes || ''),
-    ])))
-  ]);
-  root.appendChild(el('div', {class:'card'}, table));
-}
-
-function renderRamadan() {
-  const root = document.getElementById('ramadan'); root.innerHTML='';
-  root.appendChild(el('div', {class:'card'}, [
-    el('b', {}, 'Horaires Ramadan 2026 — Melesse (35520)'),
-    el('div', {class:'small'}, 'Suhoor = Fajr exact • Iftar = Maghrib • Alertes : importer le fichier .ics (30 min / 20 min).'),
-  ]));
-  const table = el('table', {}, [
-    el('thead', {}, el('tr', {}, ['Jour','Date','Suhoor(Fajr)','Iftar(Maghrib)','Durée jeûne'].map(x=>el('th', {}, x)))),
-    el('tbody', {}, DATA.ramadanSchedule.map(r=>el('tr', {}, [
-      el('td', {}, String(r.day)),
-      el('td', {}, r.date),
-      el('td', {}, r.fajr),
-      el('td', {}, r.maghrib),
-      el('td', {}, r.fasting),
-    ])))
-  ]);
-  root.appendChild(el('div', {class:'card'}, table));
-}
-
-function renderSettings() {
-  const root = document.getElementById('settings'); root.innerHTML='';
-  const goals = store.get('goals', DATA.defaults.goals);
-
-  const preset2 = ()=>{ goals.runs=2; goals.km=12; goals.min=120; store.set('goals', goals); renderSettings(); };
-  const preset3 = ()=>{ goals.runs=3; goals.km=18; goals.min=180; store.set('goals', goals); renderSettings(); };
-
-  root.appendChild(el('div', {class:'card'}, [
-    el('b', {}, 'Objectifs hebdo (km + minutes)'),
-    el('div', {class:'small muted'}, 'Par défaut : 2 séances/semaine. Tu peux passer à 3 en option si tu te sens bien.'),
-    el('div', {class:'row', style:'margin:10px 0;'}, [
-      el('button', {class:'btn', onclick:preset2}, 'Mode 2 séances (par défaut)'),
-      el('button', {class:'btn', onclick:preset3}, 'Mode 3 séances (option)'),
-    ]),
-    el('div', {class:'grid'}, [
-      el('div', {}, [el('label', {}, 'Objectif km / semaine'), el('input', {type:'number', value: goals.km, oninput:(e)=>{ goals.km=Number(e.target.value||0); store.set('goals', goals); } })]),
-      el('div', {}, [el('label', {}, 'Objectif minutes / semaine'), el('input', {type:'number', value: goals.min, oninput:(e)=>{ goals.min=Number(e.target.value||0); store.set('goals', goals); } })]),
-      el('div', {}, [el('label', {}, 'Objectif sorties / semaine'), el('input', {type:'number', value: goals.runs, oninput:(e)=>{ goals.runs=Number(e.target.value||0); store.set('goals', goals); } })]),
-      el('div', {}, [el('label', {}, 'Seuil alerte genou (0–10)'), el('input', {type:'number', value: goals.kneeAlert, oninput:(e)=>{ goals.kneeAlert=Number(e.target.value||0); store.set('goals', goals); } })]),
-    ]),
-    el('div', {class:'small', style:'margin-top:10px;'}, 'Si ton genou dépasse le seuil, fais uniquement sortie facile + renforcement.'),
-  ]));
-}
-
-function show(tabId) {
-  document.querySelectorAll('button.tab').forEach(b=>b.classList.remove('active'));
-  document.querySelector(`button.tab[data-tab="${tabId}"]`).classList.add('active');
-  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
-  document.getElementById(tabId).style.display='block';
-  if (tabId==='log') renderLog();
-}
-
-document.querySelectorAll('button.tab').forEach(btn=>btn.addEventListener('click', ()=>show(btn.dataset.tab)));
-
-function renderAll() { renderToday(); renderLog(); renderRamadan(); renderSettings(); }
-renderAll();
+/* INIT */
+renderToday();
 </script>
+
 </body>
 </html>

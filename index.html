@@ -255,9 +255,62 @@ function toggleTheme(){
     document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"
   );
 }
+<script>
+/* =========================
+   CŒUR CALENDRIER 2026
+========================= */
 
+// Dates clés (France – Melesse)
+const START_DATE = new Date("2026-01-31");
+const RAMADAN_START = new Date("2026-02-19");
+const RAMADAN_END = new Date("2026-03-20");
+
+// Calcul de la semaine depuis le début du programme
+function getWeekNumber() {
+  const today = new Date();
+  const diff = today - START_DATE;
+  return Math.max(1, Math.floor(diff / (7 * 24 * 60 * 60 * 1000)) + 1);
+}
+
+// Déterminer la phase actuelle
+function getPhase() {
+  const today = new Date();
+  if (today < RAMADAN_START) return "Reprise";
+  if (today >= RAMADAN_START && today <= RAMADAN_END) return "Ramadan";
+  if (today > RAMADAN_END && getWeekNumber() <= 12) return "Post-Ramadan";
+  return "Objectif 10 km";
+}
+
+// Orientation running selon la phase
+function getRunningOrientation() {
+  const phase = getPhase();
+  if (phase === "Reprise") {
+    return "Marche / course — 2 séances — priorité genou";
+  }
+  if (phase === "Ramadan") {
+    return "Footing doux après Iftar — 2 séances max";
+  }
+  if (phase === "Post-Ramadan") {
+    return "Course continue — augmentation progressive";
+  }
+  return "Endurance + allonge progressive — objectif 10 km";
+}
+
+// Affichage dans l’onglet Aujourd’hui
+function renderPhaseBanner() {
+  const container = document.getElementById("today");
+  const banner = document.createElement("div");
+  banner.className = "card";
+  banner.innerHTML = `
+    <strong>Semaine ${getWeekNumber()} — ${getPhase()}</strong>
+    <div class="small">Programme : ${getRunningOrientation()}</div>
+  `;
+  container.prepend(banner);
+}
+</script>
 /* INIT */
 renderToday();
+renderPhaseBanner();
 </script>
 
 </body>

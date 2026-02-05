@@ -1,259 +1,844 @@
 <!doctype html>
 <html lang="fr" data-theme="light">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Running + Nutrition 2026</title>
-
-<style>
-:root {
-  --bg:#f4f7fb;
-  --card:#ffffff;
-  --text:#1f2937;
-  --primary:#4f46e5;
-  --accent:#f59e0b;
-  --muted:#6b7280;
-}
-[data-theme="dark"] {
-  --bg:#0f172a;
-  --card:#020617;
-  --text:#e5e7eb;
-  --primary:#6366f1;
-  --accent:#fbbf24;
-  --muted:#9ca3af;
-}
-
-body {
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-  background:var(--bg);
-  color:var(--text);
-}
-
-header {
-  padding:18px;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:#fff;
-}
-
-main {
-  padding:16px;
-  max-width:960px;
-  margin:auto;
-}
-
-.card {
-  background:var(--card);
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-
-.tabs {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
-}
-
-button {
-  border:none;
-  border-radius:999px;
-  padding:10px 16px;
-  font-weight:600;
-  cursor:pointer;
-  background:#e5e7eb;
-}
-
-button.active {
-  background:var(--primary);
-  color:#fff;
-}
-
-label {
-  font-size:12px;
-  color:var(--muted);
-}
-
-input {
-  width:100%;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid #d1d5db;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:12px;
-}
-
-.check {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:6px 0;
-}
-
-.small {
-  font-size:12px;
-  color:var(--muted);
-}
-
-.toggle-theme {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--primary);
-  color:#fff;
-  border-radius:999px;
-  padding:14px 16px;
-  box-shadow:0 10px 25px rgba(0,0,0,.3);
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ramadan + Running + Nutrition 2026 — Melesse (35520)</title>
+  <style>
+    :root{
+      --bg:#f4f7fb; --card:#ffffff; --text:#111827; --muted:#6b7280;
+      --primary:#4f46e5; --accent:#f59e0b; --ok:#22c55e; --warn:#ef4444;
+      --shadow:0 10px 25px rgba(0,0,0,.08);
+      --border:rgba(17,24,39,.10);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1224; --card:#060b18; --text:#e5e7eb; --muted:#9ca3af;
+      --primary:#6366f1; --accent:#fbbf24; --ok:#22c55e; --warn:#fb7185;
+      --shadow:0 10px 25px rgba(0,0,0,.35);
+      --border:rgba(229,231,235,.10);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+      background:var(--bg); color:var(--text);
+    }
+    header{
+      padding:18px 16px;
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;
+    }
+    header .title{font-weight:800;font-size:18px;line-height:1.2}
+    header .sub{opacity:.9;font-size:12px;margin-top:4px}
+    main{padding:16px;max-width:980px;margin:auto}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+    .tab{
+      border:none;border-radius:999px;padding:10px 14px;
+      font-weight:700;cursor:pointer;background:rgba(0,0,0,.08); color:inherit;
+    }
+    [data-theme="dark"] .tab{background:rgba(255,255,255,.10)}
+    .tab.active{background:var(--primary);color:#fff}
+    .card{
+      background:var(--card); border-radius:18px; padding:16px;
+      box-shadow:var(--shadow); margin-bottom:14px; border:1px solid var(--border);
+    }
+    .small{font-size:12px;color:var(--muted)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:12px;
+      background:rgba(79,70,229,.08); border:1px solid rgba(79,70,229,.25);
+      font-weight:700;
+    }
+    [data-theme="dark"] .pill{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.28)}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:12px;
+      margin-top:10px;
+    }
+    label{display:block;font-size:12px;color:var(--muted);margin:0 0 4px}
+    input, select, textarea{
+      width:100%; padding:10px 10px; border-radius:12px;
+      border:1px solid var(--border); background:transparent; color:inherit;
+      outline:none;
+    }
+    textarea{min-height:90px; resize:vertical}
+    .check{
+      display:flex; align-items:flex-start; gap:10px;
+      padding:10px; border-radius:14px;
+      background:rgba(0,0,0,.03); border:1px solid var(--border);
+      margin:10px 0;
+    }
+    [data-theme="dark"] .check{background:rgba(255,255,255,.06)}
+    .check input{width:20px;height:20px;margin-top:2px}
+    .check .meta{font-size:12px;color:var(--muted);margin-top:3px}
+    .btn{
+      border:none;border-radius:12px;padding:10px 12px;
+      font-weight:800; cursor:pointer;
+    }
+    .btn.primary{background:var(--primary);color:#fff}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:inherit}
+    .btn.danger{background:#ef4444;color:#fff}
+    .toggle-theme{
+      position:fixed; right:18px; bottom:18px;
+      background:var(--primary); color:#fff; border:none;
+      border-radius:999px; padding:14px 16px; font-weight:900;
+      box-shadow:0 10px 25px rgba(0,0,0,.25); cursor:pointer;
+    }
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left}
+    th{font-size:12px;color:var(--muted)}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px}
+    .hr{height:1px;background:var(--border);margin:12px 0}
+  </style>
 </head>
 
 <body>
-
 <header>
-  <strong>Running + Nutrition 2026</strong> — Melesse (35520)<br>
-  <span class="small">Objectif 10 km • Perte de poids • Ramadan</span>
+  <div class="title">Ramadan + Running + Nutrition 2026 — Melesse (35520)</div>
+  <div class="sub">Suivi quotidien (offline) • Programme 2026 (3 séances/sem) • Eau / Protéines / Calories • Mode clair/sombre • v3</div>
 </header>
 
 <main>
+  <div class="tabs">
+    <button class="tab active" data-tab="today">Aujourd’hui</button>
+    <button class="tab" data-tab="training">Entraînement</button>
+    <button class="tab" data-tab="nutrition">Nutrition</button>
+    <button class="tab" data-tab="ramadan">Ramadan</button>
+    <button class="tab" data-tab="log">Journal</button>
+    <button class="tab" data-tab="settings">Objectifs</button>
+  </div>
 
-<div class="tabs">
-  <button class="tab active" data-tab="today">Aujourd’hui</button>
-  <button class="tab" data-tab="training">Entraînement</button>
-  <button class="tab" data-tab="nutrition">Nutrition</button>
-  <button class="tab" data-tab="log">Journal</button>
-</div>
-
-<section id="today"></section>
-<section id="training" style="display:none"></section>
-<section id="nutrition" style="display:none"></section>
-<section id="log" style="display:none"></section>
-
+  <section id="today" class="panel"></section>
+  <section id="training" class="panel" style="display:none"></section>
+  <section id="nutrition" class="panel" style="display:none"></section>
+  <section id="ramadan" class="panel" style="display:none"></section>
+  <section id="log" class="panel" style="display:none"></section>
+  <section id="settings" class="panel" style="display:none"></section>
 </main>
 
 <button class="toggle-theme" onclick="toggleTheme()">🌙 / ☀️</button>
 
 <script>
-/* ===== STOCKAGE ===== */
-const store={
-  get:(k,d)=>JSON.parse(localStorage.getItem(k))??d,
-  set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))
+/* =========================
+   CONFIG — PERSONNEL
+========================= */
+const APP_VERSION = "v3.0.0";
+const PROFILE_DEFAULTS = {
+  name: "JT",
+  birth: "1987-05-02",
+  heightCm: 182,
+  weightKg: 94
 };
 
-const todayKey=new Date().toISOString().slice(0,10);
-if(!store.get("day")) store.set("day",{});
-if(!store.get("log")) store.set("log",[]);
+/* Objectifs de départ (tu peux modifier dans “Objectifs”) */
+const GOALS_DEFAULTS = {
+  runsPerWeek: 3,
+  kneeAlert: 4,               // si douleur genou >= 4 => on lève le pied
+  waterL: 3.3,                // L / jour (cible)
+  proteinG: 152,              // g / jour (cible)
+  caloriesTraining: 2850,     // kcal jour entraînement (cible)
+  caloriesRest: 2450          // kcal jour repos (cible)
+};
 
-/* ===== AUJOURD’HUI ===== */
+/* Ramadan 2026 — Melesse (35520) (extrait complet) */
+const RAMADAN_2026 = [
+  {"day":1,"date":"2026-02-19","fajr":"06:41","maghrib":"18:38","fasting":"11h57"},
+  {"day":2,"date":"2026-02-20","fajr":"06:39","maghrib":"18:40","fasting":"12h01"},
+  {"day":3,"date":"2026-02-21","fajr":"06:37","maghrib":"18:41","fasting":"12h04"},
+  {"day":4,"date":"2026-02-22","fajr":"06:36","maghrib":"18:43","fasting":"12h07"},
+  {"day":5,"date":"2026-02-23","fajr":"06:34","maghrib":"18:44","fasting":"12h10"},
+  {"day":6,"date":"2026-02-24","fajr":"06:32","maghrib":"18:46","fasting":"12h14"},
+  {"day":7,"date":"2026-02-25","fajr":"06:30","maghrib":"18:48","fasting":"12h18"},
+  {"day":8,"date":"2026-02-26","fajr":"06:29","maghrib":"18:49","fasting":"12h20"},
+  {"day":9,"date":"2026-02-27","fajr":"06:27","maghrib":"18:51","fasting":"12h24"},
+  {"day":10,"date":"2026-02-28","fajr":"06:25","maghrib":"18:52","fasting":"12h27"},
+  {"day":11,"date":"2026-03-01","fajr":"06:23","maghrib":"18:54","fasting":"12h31"},
+  {"day":12,"date":"2026-03-02","fajr":"06:21","maghrib":"18:55","fasting":"12h34"},
+  {"day":13,"date":"2026-03-03","fajr":"06:19","maghrib":"18:57","fasting":"12h38"},
+  {"day":14,"date":"2026-03-04","fajr":"06:17","maghrib":"18:58","fasting":"12h41"},
+  {"day":15,"date":"2026-03-05","fajr":"06:15","maghrib":"19:00","fasting":"12h45"},
+  {"day":16,"date":"2026-03-06","fajr":"06:13","maghrib":"19:01","fasting":"12h48"},
+  {"day":17,"date":"2026-03-07","fajr":"06:11","maghrib":"19:03","fasting":"12h52"},
+  {"day":18,"date":"2026-03-08","fajr":"06:09","maghrib":"19:05","fasting":"12h56"},
+  {"day":19,"date":"2026-03-09","fajr":"06:07","maghrib":"19:06","fasting":"12h59"},
+  {"day":20,"date":"2026-03-10","fajr":"06:05","maghrib":"19:08","fasting":"13h03"},
+  {"day":21,"date":"2026-03-11","fajr":"06:03","maghrib":"19:09","fasting":"13h06"},
+  {"day":22,"date":"2026-03-12","fajr":"06:01","maghrib":"19:11","fasting":"13h10"},
+  {"day":23,"date":"2026-03-13","fajr":"05:59","maghrib":"19:12","fasting":"13h13"},
+  {"day":24,"date":"2026-03-14","fajr":"05:57","maghrib":"19:14","fasting":"13h17"},
+  {"day":25,"date":"2026-03-15","fajr":"05:55","maghrib":"19:15","fasting":"13h20"},
+  {"day":26,"date":"2026-03-16","fajr":"05:52","maghrib":"19:17","fasting":"13h25"},
+  {"day":27,"date":"2026-03-17","fajr":"05:50","maghrib":"19:18","fasting":"13h28"},
+  {"day":28,"date":"2026-03-18","fajr":"05:48","maghrib":"19:19","fasting":"13h31"},
+  {"day":29,"date":"2026-03-19","fajr":"05:46","maghrib":"19:21","fasting":"13h35"},
+  {"day":30,"date":"2026-03-20","fajr":"05:44","maghrib":"19:22","fasting":"13h38"}
+];
+
+/* Renforcement genou (simple, efficace) */
+const KNEE_FRIENDLY = [
+  {name:"Gainage face", sets:3, reps:"30–45 s"},
+  {name:"Gainage latéral", sets:2, reps:"30 s / côté"},
+  {name:"Pont fessier", sets:3, reps:"15–20"},
+  {name:"Mollets debout lents", sets:3, reps:"20"},
+  {name:"Squat lent (amplitude contrôlée)", sets:3, reps:"10–12"}
+];
+
+/* =========================
+   STORAGE (anti-crash)
+========================= */
+const store = {
+  get(k, d){
+    try{
+      const v = JSON.parse(localStorage.getItem(k));
+      return (v === null || v === undefined) ? d : v;
+    }catch(e){ return d; }
+  },
+  set(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
+};
+
+function ensureDefaults(){
+  if(!store.get("profile", null)) store.set("profile", PROFILE_DEFAULTS);
+  if(!store.get("goals", null)) store.set("goals", GOALS_DEFAULTS);
+  if(!store.get("daily", null)) store.set("daily", {});
+  if(!store.get("log", null)) store.set("log", []);
+}
+ensureDefaults();
+
+/* =========================
+   HELPERS
+========================= */
+const z = n => String(n).padStart(2,"0");
+function fmtDate(d){
+  return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`;
+}
+function parseDate(s){ const [Y,M,D]=s.split("-").map(Number); return new Date(Y, M-1, D); }
+function daysBetween(a,b){ return Math.round((b - a) / 86400000); }
+
+function el(tag, attrs={}, html=""){
+  const n = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v])=>{
+    if(k==="class") n.className=v;
+    else if(k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v);
+  });
+  if(html!==null && html!==undefined) n.innerHTML = html;
+  return n;
+}
+
+function getDaily(dateStr){
+  const all = store.get("daily", {});
+  return all[dateStr] || {
+    // checklist
+    chkHydration:false, chkRun:false, chkStrength:false, chkFood:false,
+    // saisies
+    waterL:"", proteinG:"", caloriesK:"", runMin:"", runKm:"", walkMin:"", knee:"", energy:"", notes:"",
+    // tags
+    mode:"A" // A = normal, B = plus doux
+  };
+}
+function setDaily(dateStr, obj){
+  const all = store.get("daily", {});
+  all[dateStr] = obj;
+  store.set("daily", all);
+}
+function pushLog(line){
+  const l = store.get("log", []);
+  l.unshift(line);
+  store.set("log", l.slice(0, 250));
+}
+
+/* =========================
+   PROGRAMME 2026 (simple et solide)
+   - Reprise : 4 semaines (3 séances, run/walk)
+   - Pré-Ramadan : montée progressive
+   - Ramadan : 2–3 séances max, très doux, après Iftar
+   - Post-Ramadan : reprise progressive vers 10 km
+========================= */
+function getPhase(dateStr){
+  const d = parseDate(dateStr);
+  const ramStart = parseDate("2026-02-19");
+  const ramEnd   = parseDate("2026-03-20");
+
+  if(d < ramStart) return "Reprise";
+  if(d >= ramStart && d <= ramEnd) return "Ramadan";
+  if(d <= parseDate("2026-04-30")) return "Post-Ramadan";
+  return "Objectif 10 km";
+}
+
+function weekNumberSince(startStr, dateStr){
+  const s = parseDate(startStr);
+  const d = parseDate(dateStr);
+  const diffDays = Math.max(0, daysBetween(s, d));
+  return Math.floor(diffDays/7) + 1;
+}
+
+/* Donne le plan du jour (course + marche) selon phase, semaine, et jour */
+function planOfDay(dateStr){
+  const goals = store.get("goals", GOALS_DEFAULTS);
+  const phase = getPhase(dateStr);
+  const d = parseDate(dateStr);
+  const dow = d.getDay(); // 0 dim, 1 lun... 6 sam
+
+  // Jours “type” : Mar / Jeu / Dim = séances (3)
+  const isSessionDay = [2,4,0].includes(dow);
+  const isStrengthDay = [1,5].includes(dow); // Lun/Ven renfo léger
+
+  // Mode B si genou au-dessus du seuil (la veille ou saisie du jour)
+  const st = getDaily(dateStr);
+  const knee = parseFloat(st.knee);
+  const kneeAlert = goals.kneeAlert ?? 4;
+  const mode = (isNaN(knee) ? st.mode : (knee >= kneeAlert ? "B" : st.mode));
+
+  // Base
+  let run = { targetRunMin: 0, targetWalkMin: 0, text: "" };
+  let sessionsPerWeek = goals.runsPerWeek || 3;
+
+  // Si pas journée de séance, on met repos / marche douce
+  if(!isSessionDay){
+    run.targetRunMin = 0;
+    run.targetWalkMin = (phase==="Ramadan") ? 0 : 20; // marche douce option hors ramadan
+    run.text = (phase==="Ramadan")
+      ? "Repos (ou mobilité douce 10–15 min)."
+      : "Repos / marche douce 20 min si envie.";
+    return {phase, mode, sessionsPerWeek, isSessionDay:false, isStrengthDay, run};
+  }
+
+  // Séances selon phases
+  if(phase==="Reprise"){
+    const wk = weekNumberSince("2026-01-01", dateStr); // repère simple
+    // 3 séances : 35–60 min total en run/walk
+    const total = Math.min(60, 35 + (wk-1)*5); // prog douce
+    // Mode B = plus de marche
+    const runPart = (mode==="B") ? 12 : 18;
+    run.targetRunMin = runPart;
+    run.targetWalkMin = Math.max(0, total - runPart);
+    run.text = `Séance Reprise : alternance course/marche — total ${total} min (course ${runPart} min + marche ${total-runPart} min).`;
+    return {phase, mode, sessionsPerWeek, isSessionDay:true, isStrengthDay, run};
+  }
+
+  if(phase==="Ramadan"){
+    // Très doux, après Iftar. 25–40 min total.
+    const total = (mode==="B") ? 25 : 35;
+    const runPart = (mode==="B") ? 12 : 20;
+    run.targetRunMin = runPart;
+    run.targetWalkMin = total - runPart;
+    run.text = `Ramadan : footing très doux après Iftar — ${total} min (course ${runPart} + marche ${total-runPart}).`;
+    return {phase, mode, sessionsPerWeek: Math.min(3, sessionsPerWeek), isSessionDay:true, isStrengthDay, run};
+  }
+
+  if(phase==="Post-Ramadan"){
+    // Reprise progressive vers 45–60 min, run/walk si besoin
+    const wk = weekNumberSince("2026-03-21", dateStr);
+    const total = Math.min(60, 40 + (wk-1)*5);
+    const runPart = (mode==="B") ? Math.min(24, 14 + (wk-1)*2) : Math.min(35, 18 + (wk-1)*3);
+    run.targetRunMin = runPart;
+    run.targetWalkMin = Math.max(0, total - runPart);
+    run.text = `Post-Ramadan : progression douce — ${total} min (course ${runPart} + marche ${total-runPart}).`;
+    return {phase, mode, sessionsPerWeek, isSessionDay:true, isStrengthDay, run};
+  }
+
+  // Objectif 10 km : course continue + allures très progressives
+  // pour toi : rester “facile” tant que le poids baisse et que la régularité s’installe
+  const wk = weekNumberSince("2026-05-01", dateStr);
+  const total = Math.min(70, 45 + (wk-1)*3);
+  const runPart = (mode==="B") ? Math.min(40, 25 + (wk-1)*2) : Math.min(60, 35 + (wk-1)*3);
+  run.targetRunMin = runPart;
+  run.targetWalkMin = Math.max(0, total - runPart);
+  run.text = `Objectif 10 km : endurance facile — ${total} min (course ${runPart} + marche ${total-runPart}).`;
+  return {phase, mode, sessionsPerWeek, isSessionDay:true, isStrengthDay, run};
+}
+
+/* =========================
+   NUTRITION — cibles simples
+========================= */
+function targetsForDay(dateStr){
+  const goals = store.get("goals", GOALS_DEFAULTS);
+  const p = planOfDay(dateStr);
+  const isTraining = p.isSessionDay;
+  const water = goals.waterL ?? 3.3;
+  const protein = goals.proteinG ?? 152;
+  const calories = isTraining ? (goals.caloriesTraining ?? 2850) : (goals.caloriesRest ?? 2450);
+  return { isTraining, waterL: water, proteinG: protein, caloriesK: calories };
+}
+
+function mealTemplate(isTraining, phase){
+  // menus types (simples, “répétables”, pas de cuisine compliquée)
+  if(phase==="Ramadan"){
+    return {
+      title:"Menu type Ramadan (simple)",
+      lines:[
+        "Suhoor : eau + yaourt grec/skyr + flocons d’avoine + fruit + 30–40 g whey si besoin.",
+        "Iftar : eau + 2–3 dattes + soupe/légumes + source protéines (poulet/poisson/œufs) + féculent modéré.",
+        "Dîner : léger, protéines + légumes, éviter le gras lourd.",
+        "Hydratation : étaler de l’Iftar au Suhoor (objectif eau)."
+      ]
+    };
+  }
+  if(isTraining){
+    return {
+      title:"Menu type jour entraînement",
+      lines:[
+        "Petit-déj : protéines + glucides simples (ex : œufs + pain complet) + fruit.",
+        "Déj : protéines + féculent + légumes (portion féculent un peu plus large).",
+        "Collation : whey + fruit (si faim / si séance).",
+        "Dîner : protéines + légumes + un peu de féculents si besoin."
+      ]
+    };
+  }
+  return {
+    title:"Menu type jour repos",
+    lines:[
+      "Petit-déj : protéines + fruit.",
+      "Déj : protéines + légumes + féculent plus petit.",
+      "Collation : skyr/yaourt + fruit (option).",
+      "Dîner : protéines + légumes (simple)."
+    ]
+  };
+}
+
+/* =========================
+   UI — RENDER
+========================= */
 function renderToday(){
-  const d=store.get("day")[todayKey]||{};
-  document.getElementById("today").innerHTML=`
-  <div class="card">
-    <strong>Check-list du jour</strong>
+  const root = document.getElementById("today");
+  const dateStr = fmtDate(new Date());
+  const st = getDaily(dateStr);
+  const goals = store.get("goals", GOALS_DEFAULTS);
+  const prof = store.get("profile", PROFILE_DEFAULTS);
 
-    <div class="check"><input type="checkbox" ${d.water?'checked':''} onchange="save('water',this.checked)"> 💧 Eau : 3 L</div>
-    <div class="check"><input type="checkbox" ${d.run?'checked':''} onchange="save('run',this.checked)"> 🏃 Course / Marche (45–60 min)</div>
-    <div class="check"><input type="checkbox" ${d.renfo?'checked':''} onchange="save('renfo',this.checked)"> 🦵 Renforcement genou</div>
-    <div class="check"><input type="checkbox" ${d.food?'checked':''} onchange="save('food',this.checked)"> 🍽️ Alimentation respectée</div>
+  const p = planOfDay(dateStr);
+  const t = targetsForDay(dateStr);
+  const ram = RAMADAN_2026.find(x=>x.date===dateStr);
 
-    <div class="grid" style="margin-top:10px">
-      <div><label>Minutes</label><input type="number" value="${d.min||''}" onchange="save('min',this.value)"></div>
-      <div><label>Kilomètres</label><input type="number" step="0.1" value="${d.km||''}" onchange="save('km',this.value)"></div>
-      <div><label>Douleur genou (0–10)</label><input type="number" max="10" value="${d.knee||''}" onchange="save('knee',this.value)"></div>
+  root.innerHTML = "";
+  const top = el("div", {class:"card"}, `
+    <div class="row" style="justify-content:space-between">
+      <div>
+        <div style="font-weight:900;font-size:16px">Semaine — ${p.phase}</div>
+        <div class="small">Date : <span class="mono">${dateStr}</span> • Mode : <b>${p.mode}</b> (A = normal, B = plus doux)</div>
+      </div>
+      <div class="small mono">APP ${APP_VERSION}</div>
     </div>
-  </div>`;
+    <div class="hr"></div>
+    <div class="row" style="gap:8px">
+      <span class="pill">✅ Plan du jour : <b>${p.run.text}</b></span>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <span class="pill">💧 Eau cible : <b>${t.waterL.toFixed(1)} L / jour</b></span>
+      <span class="pill">🍗 Protéines : <b>${t.proteinG} g</b></span>
+      <span class="pill">🔥 Calories : <b>${t.caloriesK} kcal</b> (${t.isTraining ? "entraînement" : "repos"})</span>
+    </div>
+    ${ram ? `<div class="small" style="margin-top:10px">Ramadan — Suhoor(Fajr) : <b>${ram.fajr}</b> • Iftar(Maghrib) : <b>${ram.maghrib}</b> • Durée : <b>${ram.fasting}</b></div>` : `<div class="small" style="margin-top:10px">Hors Ramadan — 3 séances/semaine (progression douce).</div>`}
+  `);
+  root.appendChild(top);
+
+  // Checklist
+  const chk = el("div", {class:"card"});
+  chk.appendChild(el("div", {}, `<div style="font-weight:900;font-size:16px">Check-list du jour</div><div class="small">La check-list s’adapte au plan du jour (course/marche + cibles nutrition).</div>`));
+
+  const mkCheck = (key, title, meta) => {
+    const wrap = el("div", {class:"check"});
+    const input = el("input", {type:"checkbox"});
+    input.checked = !!st[key];
+    input.addEventListener("change", (e)=>{
+      st[key] = e.target.checked;
+      setDaily(dateStr, st);
+      pushLog(`${dateStr} • ${title} : ${st[key] ? "OK" : "NON"}`);
+      renderToday(); // refresh
+    });
+    const content = el("div", {}, `<div style="font-weight:800">${title}</div><div class="meta">${meta}</div>`);
+    wrap.appendChild(input); wrap.appendChild(content);
+    return wrap;
+  };
+
+  chk.appendChild(mkCheck("chkHydration", "Hydratation", `Objectif : ${t.waterL.toFixed(1)} L aujourd’hui (saisis ton réel plus bas).`));
+  chk.appendChild(mkCheck("chkRun", "Course / Marche", p.isSessionDay
+    ? `Cible : course ${p.run.targetRunMin} min + marche ${p.run.targetWalkMin} min (total ${p.run.targetRunMin + p.run.targetWalkMin} min).`
+    : `Repos. Option : marche douce ${p.run.targetWalkMin} min.`));
+  chk.appendChild(mkCheck("chkStrength", "Renforcement genou", `2×/semaine (1× si fatigue Ramadan). Focus gainage + fessiers + mollets.`));
+  chk.appendChild(mkCheck("chkFood", "Alimentation (protéines + calories)", `Cible : ${t.proteinG} g protéines • ${t.caloriesK} kcal.`));
+
+  const quickMeals = mealTemplate(t.isTraining, p.phase);
+  chk.appendChild(el("div", {class:"small", style:"margin-top:10px"}, `
+    <b>Repas (rappel rapide)</b><br>
+    <b>${quickMeals.title}</b><br>
+    • ${quickMeals.lines.join("<br>• ")}
+  `));
+  root.appendChild(chk);
+
+  // Saisie jour
+  const form = el("div", {class:"card"});
+  form.appendChild(el("div", {}, `<div style="font-weight:900;font-size:16px">Suivi du jour (saisie)</div><div class="small">Les données restent sur ton téléphone/ordi (localStorage). Pas d’inscription.</div>`));
+
+  const grid = el("div", {class:"grid"});
+  const field = (lab, key, type="number", step=null, placeholder="") => {
+    const box = el("div", {});
+    box.appendChild(el("label", {}, lab));
+    const inp = el("input", {type, placeholder});
+    if(step!==null) inp.setAttribute("step", step);
+    inp.value = st[key] ?? "";
+    inp.addEventListener("input", (e)=>{ st[key] = e.target.value; setDaily(dateStr, st); });
+    box.appendChild(inp);
+    return box;
+  };
+
+  grid.appendChild(field("Eau réelle (L)", "waterL", "number", "0.1", `Cible ${t.waterL.toFixed(1)}`));
+  grid.appendChild(field("Protéines réelles (g)", "proteinG", "number", "1", `Cible ${t.proteinG}`));
+  grid.appendChild(field("Calories réelles (kcal)", "caloriesK", "number", "1", `Cible ${t.caloriesK}`));
+  grid.appendChild(field("Durée course (min)", "runMin", "number", "1", `Cible ${p.run.targetRunMin}`));
+  grid.appendChild(field("Distance (km)", "runKm", "number", "0.01", ""));
+  grid.appendChild(field("Durée marche (min)", "walkMin", "number", "1", `Cible ${p.run.targetWalkMin}`));
+  grid.appendChild(field("Douleur genou (0–10)", "knee", "number", "1", `Alerte ≥ ${goals.kneeAlert}`));
+  grid.appendChild(field("Énergie (0–10)", "energy", "number", "1", ""));
+
+  form.appendChild(grid);
+
+  const notesBox = el("div", {style:"margin-top:12px"});
+  notesBox.appendChild(el("label", {}, "Notes"));
+  const ta = el("textarea", {});
+  ta.value = st.notes || "";
+  ta.addEventListener("input", (e)=>{ st.notes = e.target.value; setDaily(dateStr, st); });
+  notesBox.appendChild(ta);
+  form.appendChild(notesBox);
+
+  const actions = el("div", {class:"row", style:"margin-top:12px"});
+  const btnSave = el("button", {class:"btn primary"}, "Enregistrer");
+  btnSave.addEventListener("click", ()=>{
+    setDaily(dateStr, st);
+    pushLog(`${dateStr} • Sauvegarde : eau=${st.waterL||"-"}L, prot=${st.proteinG||"-"}g, kcal=${st.caloriesK||"-"}, run=${st.runMin||"-"}min/${st.runKm||"-"}km, walk=${st.walkMin||"-"}min, genou=${st.knee||"-"}, énergie=${st.energy||"-"}`);
+    alert("✅ Enregistré.");
+  });
+
+  const btnReset = el("button", {class:"btn danger"}, "Réinitialiser la journée");
+  btnReset.addEventListener("click", ()=>{
+    if(!confirm("Tu confirmes ? Ça efface les saisies du jour.")) return;
+    const fresh = getDaily("2099-01-01"); // clone structure
+    setDaily(dateStr, fresh);
+    pushLog(`${dateStr} • Reset journée`);
+    renderToday();
+  });
+
+  actions.appendChild(btnSave);
+  actions.appendChild(btnReset);
+  form.appendChild(actions);
+
+  const hint = el("div", {class:"small", style:"margin-top:10px"}, `
+    Astuce : si tu ne vois pas les changements après un commit GitHub Pages, fais un <b>hard refresh</b> (Cmd+Shift+R) ou ouvre en navigation privée.
+  `);
+  form.appendChild(hint);
+
+  root.appendChild(form);
 }
 
-/* ===== ENTRAÎNEMENT ===== */
 function renderTraining(){
-  document.getElementById("training").innerHTML=`
-  <div class="card">
-    <strong>Semaine type (3 séances)</strong>
-    <ul class="small">
-      <li>🔵 Séance 1 : Endurance 45–55 min (7’30–8’00/km)</li>
-      <li>🟠 Séance 2 : 6×(2 min dynamique / 2 min facile)</li>
-      <li>🟢 Séance 3 : Sortie libre 50–60 min</li>
-    </ul>
-    <div class="small">Progression : marche → course continue en 6–8 semaines</div>
-  </div>`;
+  const root = document.getElementById("training");
+  const dateStr = fmtDate(new Date());
+  const p = planOfDay(dateStr);
+  const goals = store.get("goals", GOALS_DEFAULTS);
+
+  root.innerHTML = "";
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900;font-size:16px">Entraînement — guide simple</div>
+    <div class="small">Objectif : régularité, genou OK, progression douce. Si genou ≥ ${goals.kneeAlert} → Mode B + marche.</div>
+    <div class="hr"></div>
+    <div class="row">
+      <span class="pill">Phase : <b>${p.phase}</b></span>
+      <span class="pill">Séances/sem : <b>${p.sessionsPerWeek}</b></span>
+      <span class="pill">Aujourd’hui : <b>${p.isSessionDay ? "Séance" : "Repos"}</b></span>
+    </div>
+  `));
+
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900">Séances (3 / semaine) — structure</div>
+    <div class="small" style="margin-top:6px">
+      <b>Mardi :</b> endurance facile (run/walk si besoin)<br>
+      <b>Jeudi :</b> endurance facile (même logique)<br>
+      <b>Dimanche :</b> sortie un peu plus longue (toujours facile)
+    </div>
+    <div class="hr"></div>
+    <div class="small">
+      <b>Quand tu passeras sous 7’00/km “sans forcer” ?</b><br>
+      Pour ton profil (début + 94 kg), c’est surtout la régularité + perte de poids qui font tout. En général : <b>6 à 12 semaines</b> de constance suffisent pour sentir un vrai saut.
+      <br><br>
+      <b>Quand introduire une séance plus rapide ?</b><br>
+      Pas avant d’avoir : <b>6 semaines</b> régulières, genou ≤ 3/10, et une sortie facile où tu finis frais. À ce moment-là : 1 séance/sem “accélérations courtes” (20–30 s) au lieu d’intervalles durs.
+    </div>
+  `));
+
+  // Renfo
+  const renfo = el("div", {class:"card"});
+  renfo.appendChild(el("div", {}, `<div style="font-weight:900">Renforcement genou (référence)</div><div class="small">2×/semaine (1× si fatigue Ramadan). 15–20 min.</div>`));
+  const table = el("table", {});
+  table.innerHTML = `
+    <thead><tr><th>Exercice</th><th>Séries × Répétitions</th></tr></thead>
+    <tbody>
+      ${KNEE_FRIENDLY.map(x=>`<tr><td>${x.name}</td><td>${x.sets} × ${x.reps}</td></tr>`).join("")}
+    </tbody>
+  `;
+  renfo.appendChild(table);
+  root.appendChild(renfo);
 }
 
-/* ===== NUTRITION ===== */
 function renderNutrition(){
-  document.getElementById("nutrition").innerHTML=`
-  <div class="card">
-    <strong>Jour AVEC entraînement</strong>
-    <div class="small">
-      Calories : 2600–2800 kcal<br>
-      Protéines : 170–180 g<br>
-      Eau : 3–3,5 L
-    </div>
-    <ul class="small">
-      <li>Déj : riz + poulet + légumes</li>
-      <li>Post-run : whey + banane</li>
-      <li>Dîner : poisson / viande + féculent</li>
-    </ul>
-  </div>
+  const root = document.getElementById("nutrition");
+  const dateStr = fmtDate(new Date());
+  const t = targetsForDay(dateStr);
+  const phase = getPhase(dateStr);
+  const prof = store.get("profile", PROFILE_DEFAULTS);
 
-  <div class="card">
-    <strong>Jour SANS entraînement</strong>
-    <div class="small">
-      Calories : 2200–2300 kcal<br>
-      Protéines : ~180 g<br>
-      Eau : 2,5–3 L
+  const tpl = mealTemplate(t.isTraining, phase);
+
+  root.innerHTML = "";
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900;font-size:16px">Nutrition — cibles du jour</div>
+    <div class="small">Simple, répétable, efficace. L’objectif : perdre du poids sans flinguer l’énergie.</div>
+    <div class="hr"></div>
+    <div class="row">
+      <span class="pill">💧 Eau : <b>${t.waterL.toFixed(1)} L</b></span>
+      <span class="pill">🍗 Protéines : <b>${t.proteinG} g</b></span>
+      <span class="pill">🔥 Calories : <b>${t.caloriesK} kcal</b> (${t.isTraining ? "entraînement" : "repos"})</span>
     </div>
-    <ul class="small">
-      <li>Déj : protéines + légumes</li>
-      <li>Dîner : léger, sans féculent</li>
-    </ul>
-  </div>`;
+  `));
+
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900">${tpl.title}</div>
+    <div class="small" style="margin-top:8px">• ${tpl.lines.join("<br>• ")}</div>
+    <div class="hr"></div>
+    <div class="small">
+      <b>Point clé pour toi :</b> vise la cible protéines tous les jours. C’est ce qui protège la masse musculaire et accélère la recomposition.
+      <br><br>
+      <b>Whey isolate :</b> utile si tu n’atteins pas la cible protéines. 30–40 g après séance ou en collation.
+    </div>
+  `));
+
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900">Quand la progression s’accélère “vraiment” ?</div>
+    <div class="small" style="margin-top:8px">
+      Chez la plupart des gens, le “déclic” se ressent quand tu enlèves ~<b>6 à 10 kg</b> (moins de charge sur les articulations, allure plus facile à FC identique).
+      <br><br>
+      Pour ton objectif 10 km : un poids réaliste et très rentable, c’est <b>86–88 kg</b> (tu auras un gain net sans te cramer).
+    </div>
+  `));
 }
 
-/* ===== JOURNAL ===== */
+function renderRamadan(){
+  const root = document.getElementById("ramadan");
+  const dateStr = fmtDate(new Date());
+  const today = RAMADAN_2026.find(x=>x.date===dateStr);
+
+  root.innerHTML = "";
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900;font-size:16px">Ramadan 2026 — Melesse (35520)</div>
+    <div class="small">Règle simple : entraînement <b>après Iftar</b> uniquement (doux).</div>
+    ${today ? `<div class="hr"></div><div class="row">
+      <span class="pill">Aujourd’hui : <b>${today.date}</b></span>
+      <span class="pill">Fajr : <b>${today.fajr}</b></span>
+      <span class="pill">Maghrib : <b>${today.maghrib}</b></span>
+      <span class="pill">Durée : <b>${today.fasting}</b></span>
+    </div>` : ""}
+  `));
+
+  const table = el("div", {class:"card"});
+  table.appendChild(el("div", {}, `<div style="font-weight:900">Table complète</div><div class="small">Suhoor = Fajr • Iftar = Maghrib</div>`));
+  const t = el("table", {});
+  t.innerHTML = `
+    <thead><tr><th>Jour</th><th>Date</th><th>Fajr</th><th>Maghrib</th><th>Durée</th></tr></thead>
+    <tbody>
+      ${RAMADAN_2026.map(r=>`<tr><td>${r.day}</td><td class="mono">${r.date}</td><td>${r.fajr}</td><td>${r.maghrib}</td><td>${r.fasting}</td></tr>`).join("")}
+    </tbody>
+  `;
+  table.appendChild(t);
+  root.appendChild(table);
+}
+
 function renderLog(){
-  const log=store.get("log");
-  document.getElementById("log").innerHTML=`
-  <div class="card">
-    <strong>Historique</strong>
-    ${log.slice(-10).reverse().map(l=>`<div class="small">${l}</div>`).join("")}
-  </div>`;
+  const root = document.getElementById("log");
+  const logs = store.get("log", []);
+  const all = store.get("daily", {});
+  const rows = Object.entries(all).sort((a,b)=>b[0].localeCompare(a[0])).slice(0, 60);
+
+  root.innerHTML = "";
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900;font-size:16px">Journal</div>
+    <div class="small">Historique des actions + dernières saisies (60 jours affichés).</div>
+  `));
+
+  const table = el("div", {class:"card"});
+  table.appendChild(el("div", {}, `<div style="font-weight:900">Dernières saisies</div>`));
+  const t = el("table", {});
+  t.innerHTML = `
+    <thead>
+      <tr>
+        <th>Date</th><th>Eau</th><th>Prot</th><th>Kcal</th><th>Run</th><th>Km</th><th>Marche</th><th>Genou</th><th>Énergie</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map(([d,st])=>`
+        <tr>
+          <td class="mono">${d}</td>
+          <td>${st.waterL||""}</td>
+          <td>${st.proteinG||""}</td>
+          <td>${st.caloriesK||""}</td>
+          <td>${st.runMin||""}</td>
+          <td>${st.runKm||""}</td>
+          <td>${st.walkMin||""}</td>
+          <td>${st.knee||""}</td>
+          <td>${st.energy||""}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+  table.appendChild(t);
+  root.appendChild(table);
+
+  const list = el("div", {class:"card"});
+  list.appendChild(el("div", {}, `<div style="font-weight:900">Logs (actions)</div><div class="small">250 entrées max.</div>`));
+  list.appendChild(el("div", {class:"small", style:"margin-top:10px;line-height:1.6"}, logs.slice(0,80).map(x=>`• ${x}`).join("<br>") || "Aucun log."));
+  root.appendChild(list);
 }
 
-/* ===== SAUVEGARDE ===== */
-function save(k,v){
-  const all=store.get("day");
-  all[todayKey]={...(all[todayKey]||{}),[k]:v};
-  store.set("day",all);
-  store.set("log",[...store.get("log"),`${todayKey} → ${k}: ${v}`]);
+function renderSettings(){
+  const root = document.getElementById("settings");
+  const prof = store.get("profile", PROFILE_DEFAULTS);
+  const goals = store.get("goals", GOALS_DEFAULTS);
+
+  root.innerHTML = "";
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900;font-size:16px">Objectifs</div>
+    <div class="small">Tu peux tout ajuster ici. C’est ce qui pilote les cibles (eau/protéines/kcal) et les alertes genou.</div>
+  `));
+
+  const card = el("div", {class:"card"});
+  card.appendChild(el("div", {}, `<div style="font-weight:900">Profil</div>`));
+  const grid = el("div", {class:"grid"});
+
+  const profFields = [
+    ["Nom", "name", "text"],
+    ["Date de naissance (YYYY-MM-DD)", "birth", "text"],
+    ["Taille (cm)", "heightCm", "number"],
+    ["Poids (kg)", "weightKg", "number"],
+  ];
+
+  profFields.forEach(([lab,key,type])=>{
+    const box = el("div", {});
+    box.appendChild(el("label", {}, lab));
+    const inp = el("input", {type});
+    inp.value = prof[key] ?? "";
+    inp.addEventListener("input", e=>{ prof[key] = (type==="number") ? Number(e.target.value||0) : e.target.value; store.set("profile", prof); });
+    box.appendChild(inp);
+    grid.appendChild(box);
+  });
+
+  card.appendChild(grid);
+  root.appendChild(card);
+
+  const gcard = el("div", {class:"card"});
+  gcard.appendChild(el("div", {}, `<div style="font-weight:900">Cibles</div>`));
+  const ggrid = el("div", {class:"grid"});
+
+  const goalFields = [
+    ["Séances / semaine", "runsPerWeek"],
+    ["Seuil alerte genou (0–10)", "kneeAlert"],
+    ["Eau cible (L / jour)", "waterL"],
+    ["Protéines cibles (g / jour)", "proteinG"],
+    ["Calories jour entraînement (kcal)", "caloriesTraining"],
+    ["Calories jour repos (kcal)", "caloriesRest"],
+  ];
+
+  goalFields.forEach(([lab,key])=>{
+    const box = el("div", {});
+    box.appendChild(el("label", {}, lab));
+    const inp = el("input", {type:"number"});
+    inp.value = goals[key] ?? "";
+    inp.addEventListener("input", e=>{ goals[key] = Number(e.target.value||0); store.set("goals", goals); });
+    box.appendChild(inp);
+    ggrid.appendChild(box);
+  });
+
+  gcard.appendChild(ggrid);
+
+  const actions = el("div", {class:"row", style:"margin-top:12px"});
+  const b1 = el("button", {class:"btn primary"}, "Sauvegarder");
+  b1.addEventListener("click", ()=>{
+    store.set("profile", prof);
+    store.set("goals", goals);
+    pushLog(`${fmtDate(new Date())} • MAJ objectifs : eau=${goals.waterL}, prot=${goals.proteinG}, kcalTrain=${goals.caloriesTraining}, kcalRest=${goals.caloriesRest}, kneeAlert=${goals.kneeAlert}`);
+    alert("✅ Objectifs enregistrés.");
+    renderToday();
+  });
+
+  const b2 = el("button", {class:"btn ghost"}, "Réglages par défaut");
+  b2.addEventListener("click", ()=>{
+    if(!confirm("Tu confirmes ? Ça remet les objectifs par défaut.")) return;
+    store.set("goals", GOALS_DEFAULTS);
+    pushLog(`${fmtDate(new Date())} • Reset objectifs`);
+    renderSettings();
+    renderToday();
+  });
+
+  actions.appendChild(b1); actions.appendChild(b2);
+  gcard.appendChild(actions);
+  root.appendChild(gcard);
+
+  root.appendChild(el("div", {class:"card"}, `
+    <div style="font-weight:900">Important (GitHub Pages)</div>
+    <div class="small" style="margin-top:8px">
+      Si tu modifies le fichier et que tu ne vois rien : <b>Cmd+Shift+R</b> (hard refresh) ou navigation privée.
+      <br>Et vérifie que tu modifies bien <b>main / (root) / index.html</b>.
+    </div>
+  `));
 }
 
-/* ===== NAVIGATION ===== */
+/* =========================
+   NAVIGATION
+========================= */
 function show(tab){
   document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
-  document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
-  ["today","training","nutrition","log"].forEach(id=>{
-    document.getElementById(id).style.display=id===tab?"block":"none";
+  const btn = document.querySelector(`.tab[data-tab="${tab}"]`);
+  if(btn) btn.classList.add("active");
+
+  ["today","training","nutrition","ramadan","log","settings"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.style.display = (id===tab) ? "block" : "none";
   });
-  ({today:renderToday,training:renderTraining,nutrition:renderNutrition,log:renderLog})[tab]();
+
+  const map = {
+    today: renderToday,
+    training: renderTraining,
+    nutrition: renderNutrition,
+    ramadan: renderRamadan,
+    log: renderLog,
+    settings: renderSettings
+  };
+  (map[tab] || renderToday)();
 }
 
-/* ===== THEME ===== */
+document.querySelectorAll(".tab").forEach(b=>{
+  b.addEventListener("click", ()=>show(b.dataset.tab));
+});
+
+/* =========================
+   THEME + PERSISTENCE
+========================= */
 function toggleTheme(){
-  document.documentElement.setAttribute(
-    "data-theme",
-    document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"
-  );
+  const cur = document.documentElement.getAttribute("data-theme") || "light";
+  const next = (cur==="dark") ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  store.set("theme", next);
 }
+(function initTheme(){
+  const saved = store.get("theme", "light");
+  document.documentElement.setAttribute("data-theme", saved);
+})();
 
 /* INIT */
-renderToday();
+show("today");
 </script>
+</body>
+</html>
+
 
 </body>
 </html>
